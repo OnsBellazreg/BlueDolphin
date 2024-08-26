@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/gojs/release/go.js"></script>
+  <style>
+    html, body { width: 100%; height: 100%; padding: 0; margin: 0; }
+    #myDiagramDiv { width: 100%; height: 100%; border: 1px solid black; }
+  </style>
+</head>
+<body>
+  <div id="myDiagramDiv"></div>
+  <script>
+    function init() {
+      var $ = go.GraphObject.make;
+
+      var myDiagram =
+        $(go.Diagram, "myDiagramDiv",
+          {
+            layout: $(go.TreeLayout, { angle: 0, layerSpacing: 50 }),
+            initialContentAlignment: go.Spot.Center,
+            "undoManager.isEnabled": true
+          });
+
+      // Create an array of nodes and links
+      var nodeDataArray = [];
+      var linkDataArray = [];
+
+      for (var i = 0; i < 10000; i++) {
+        nodeDataArray.push({ key: i, text: "Node " + i });
+      }
+      for (var i = 0; i < 9990; i+=2) {
+        linkDataArray.push({ from: i, to: i + 1 });
+      }
+
+      // Initialize the diagram's model
+      myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+
+      // Define a simple Node template
+      myDiagram.nodeTemplate =
+        $(go.Node, "Auto",
+          $(go.Shape, "Circle",
+            { fill: "lightblue", stroke: "black" }),
+          $(go.TextBlock,
+            { margin: 5 },
+            new go.Binding("text", "text"))
+        );
+    }
+
+    init();
+  </script>
+</body>
+</html>

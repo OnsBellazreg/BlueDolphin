@@ -1,0 +1,17 @@
+.diagram-component {
+  width: 800px;
+  height: 800px;
+  border: 1px solid black;
+}
+.loading-icon {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.saved-icon {
+  color: green;
+}
